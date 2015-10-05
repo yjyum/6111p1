@@ -1,5 +1,6 @@
 import sys
 import bing_api
+from rocchio import *
 
 def main(argv):
 	# parse input arguments
@@ -7,13 +8,13 @@ def main(argv):
 	precisionTarget = float(sys.argv[2])
 	queryList = sys.argv[3].split()
 
-	print "Parameters:"
-	print "Client Key = ", accountKey
-	print "Query      = ", sys.argv[3]
-	print "Precision  = ", precisionTarget
-
 	# loop of getting user feedback and improving results
 	while True:
+		print "\nParameters:"
+		print "Client Key = ", accountKey
+		print "Query      = ", ', '.join(queryList)
+		print "Precision  = ", precisionTarget
+
 		# retrieve top-10 results from query using Bing API
 		result = bing_api.search(queryList, accountKey)
 
@@ -26,23 +27,24 @@ def main(argv):
 			print "Fewer than 10 results returned, exit"
 			break
 
-		print "Total no of results : ", totalResult
+		print "\nTotal no of results : ", totalResult
 		print "Bing Search Results:"
 		print "======================"
 
 		for i in range(totalResult):
-			print "Result ", i+1
+			print "\nResult ", i+1
 			print "["
 			print " URL: ", result[i]["Url"]
 			print " Title: ", result[i]["Title"]
 			print " Summary: ", result[i]["Description"]
 			print "]"
 
-			print ""
 			choice = raw_input("Relevant (Y/N)?").lower()
-			print choice
 			if choice == "yes" or choice == "y":
+				result[i]["Relevant"] = True
 				relevantResult = relevantResult + 1
+			else:
+				result[i]["Relevant"] = False
 
 		# calculate precision
 		precision = relevantResult / float(totalResult)
@@ -50,11 +52,11 @@ def main(argv):
 
 		print "======================"
 		print "FEEDBACK SUMMARY"
-		print "Query ", sys.argv[3]
+		print "Query ", ', '.join(queryList)
 		print "Precision ", precision
 
 		# exit if no relevant results
-		if relevantResult < 10:
+		if relevantResult == 0:
 			print "No relevant results, exit"
 			break
 
@@ -64,6 +66,10 @@ def main(argv):
 			break
 		else:
 			print "Still below the desired precision of ", precisionTarget
+			newQuery = rocchio().compute(queryList, result, relevantResult)
+
+			print "Augmenting by", newQuery
+			queryList.append(newQuery)
 
 if __name__ == '__main__':
 	main(sys.argv[1:3])

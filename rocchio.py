@@ -44,6 +44,4 @@ class rocchio:
                     newQuery = term
                     maxScore = self.weight[term] 
 
-        queryList.append(newQuery)
-
-        return queryList
+        return newQuery
