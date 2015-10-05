@@ -6,35 +6,36 @@ class rocchio:
         self.weight = {}
         return
 
-    def compute(self, queryList, result, relevantResult):
-        for r in result:
-            for s in r["Title"].split():
-                if r["Relevant"]:
-                    temp = self.beta/relevantResult
-                else:
-                    temp = -self.gamma/(len(result)-relevantResult)
+    def compute(self, queryList, documents):
+        relevantDocNum = 0
+        for url, doc in documents.iteritems():
+            if doc.relevant:
+                relevantDocNum = relevantDocNum + 1
+        totalDocNum = len(documents)
 
-                if s in self.weight.keys():
-                    self.weight[s] = self.weight[s] + temp
-                else:
-                    self.weight[s] = temp
-
-            for s in r["Description"].split():
-                if r["Relevant"]:
-                    temp = self.beta/relevantResult
-                else:
-                    temp = -self.gamma/(len(result)-relevantResult)
-
-                if s in self.weight.keys():
-                    self.weight[s] = self.weight[s] + temp
-                else:
-                    self.weight[s] = temp
-
-        for s in queryList:
-            if s in self.weight.keys():
-                self.weight[s] = self.weight[s] + self.alpha
+        for url, doc in documents.iteritems():
+            if doc.relevant:
+                temp = self.beta/relevantDocNum
             else:
-                self.weight[s] = self.alpha
+                temp = -self.gamma/(totalDocNum-relevantDocNum)
+
+            for word in doc.titleWordList:
+                if word in self.weight.keys():
+                    self.weight[word] = self.weight[word] + temp
+                else:
+                    self.weight[word] = temp
+
+            for word in doc.descriptionWordList:
+                if word in self.weight.keys():
+                    self.weight[word] = self.weight[word] + temp
+                else:
+                    self.weight[word] = temp
+
+        for query in queryList:
+            if query in self.weight.keys():
+                self.weight[query] = self.weight[query] + self.alpha
+            else:
+                self.weight[query] = self.alpha
 
         newQuery = ""
         maxScore = float("-inf")
@@ -43,5 +44,7 @@ class rocchio:
                 if self.weight[term] > maxScore:
                     newQuery = term
                     maxScore = self.weight[term] 
+
+        print self.weight
 
         return newQuery

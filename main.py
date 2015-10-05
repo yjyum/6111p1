@@ -73,7 +73,7 @@ def main(argv):
 			for r in result:
 				doc = document(r)
 				documents[r["Url"]] = doc
-			newQuery = rocchio().compute(queryList, result, relevantResult)
+			newQuery = rocchio().compute(queryList, documents)
 
 			print "Augmenting by", newQuery
 			queryList.append(newQuery)

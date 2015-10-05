@@ -3,18 +3,21 @@ import constants
 from stemming.porter2 import stem
 
 class document:
+	relevant = True			# whether document is relevant
+	url = ""				# url of document
+	titleWordList = []		# list representation of title
+	titleWordPos = {}		# map of all words' positions in title: word->[pos]
+	descriptionWordList = []# list representation of description
+	descriptionWordPos = {}	# map of all words' positions in descriptions: word->[pos]
+
 	def __init__(self, rawDoc):
 		self.relevant = rawDoc["Relevant"]
 		self.url = rawDoc["Url"]
 
-		# list representation of title 
 		self.titleWordList = self.__processDoc(rawDoc["Title"])
-		# map of all words' positions in title: word->[pos]
 		self.titleWordPos = self.__getWordPos(self.titleWordList)
 
-		# list representation of description
 		self.descriptionWordList = self.__processDoc(rawDoc["Description"])
-		# map of all words' positions in descriptions: word->[pos]
 		self.descriptionWordPos = self.__getWordPos(self.descriptionWordList)
 		return
 
@@ -37,6 +40,9 @@ class document:
 		# do stemming
 		wordList = [stem(word) for word in textStr.split()]
 		return wordList
+
+		# no stemming
+		# return textStr.split()
 
 	def __getWordPos(self, wordList):
 		wordPos = {}
