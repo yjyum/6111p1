@@ -1,5 +1,6 @@
 import sys
 import bing_api
+from document import *
 from rocchio import *
 
 def main(argv):
@@ -7,6 +8,9 @@ def main(argv):
 	accountKey = sys.argv[1]
 	precisionTarget = float(sys.argv[2])
 	queryList = sys.argv[3].split()
+
+	# map of all returned documents: url->document
+	documents = {}
 
 	# loop of getting user feedback and improving results
 	while True:
@@ -66,6 +70,9 @@ def main(argv):
 			break
 		else:
 			print "Still below the desired precision of ", precisionTarget
+			for r in result:
+				doc = document(r)
+				documents[r["Url"]] = doc
 			newQuery = rocchio().compute(queryList, result, relevantResult)
 
 			print "Augmenting by", newQuery
