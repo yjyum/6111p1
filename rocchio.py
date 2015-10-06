@@ -1,9 +1,13 @@
+import math
+
 class rocchio:
     def __init__(self):
         self.alpha = 1
         self.beta = 0.75
         self.gamma = 0.15
         self.weight = {}
+        self.titleidf = {}
+        self.descriptionidf = {}
         return
 
     def compute(self, queryList, documents):
@@ -13,23 +17,40 @@ class rocchio:
                 relevantDocNum = relevantDocNum + 1
         totalDocNum = len(documents)
 
+        #compute idf
+        for doc in documents.iteritems():
+            for word in doc.titleTF.keys():
+                if word in self.titleidf.keys():
+                    self.titleidf[word]=self.titleidf[word]+1
+                else:
+                    self.titleidf[word]=1
+            for word in self.titleidf.keys():
+                self.titleidf[word]=math.log(len(documents)/self.titleidf[word])
+            for word in doc.descriptionTF.keys():
+                if word in self.descriptionidf.keys():
+                    self.descriptionidf[word]=self.descriptionidf[word]+1
+                else:
+                    self.descriptionidf[word]=1
+            for word in self.descriptionidf.keys():
+                self.descriptionidf[word]=math.log(len(documents)/self.descriptionidf[word])
+
         for url, doc in documents.iteritems():
             if doc.relevant:
                 temp = self.beta/relevantDocNum
             else:
                 temp = -self.gamma/(totalDocNum-relevantDocNum)
 
-            for word in doc.titleWordList:
+            for word in doc.titleTF.keys():
                 if word in self.weight.keys():
-                    self.weight[word] = self.weight[word] + temp
+                    self.weight[word] = self.weight[word] + temp*(doc.titleTF[word]*self.titleidf[word])
                 else:
-                    self.weight[word] = temp
+                    self.weight[word] = temp*(doc.titleTF[word]*self.titleidf[word])
 
-            for word in doc.descriptionWordList:
+            for word in doc.descriptionTF.keys():
                 if word in self.weight.keys():
-                    self.weight[word] = self.weight[word] + temp
+                    self.weight[word] = self.weight[word] + temp*(doc.descriptionTFTF[word]*self.descriptionidfidf[word])
                 else:
-                    self.weight[word] = temp
+                    self.weight[word] = temp*(doc.descriptionTFTF[word]*self.descriptionidfidf[word])
 
         for query in queryList:
             if query in self.weight.keys():
