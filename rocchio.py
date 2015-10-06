@@ -1,5 +1,5 @@
 import math
-import document
+from stemming.porter2 import stem
 
 class rocchio:
     def __init__(self):
@@ -58,6 +58,10 @@ class rocchio:
                 self.weight[query] = self.weight[query] + self.alpha
             else:
                 self.weight[query] = self.alpha
+            # delete similar words of query generated after stemming
+            if stem(query)!=query and stem(query) in self.weight.keys():
+                self.weight[query] = self.weight[query]+self.weight[stem(query)]
+                del self.weight[stem(query)]
 
         newQuery = ""
         maxScore = float("-inf")

@@ -76,7 +76,7 @@ class document:
 				descriptionTF[word] = 1
 		for word in descriptionTF.keys():
 			descriptionTF[word] = 1+math.log(descriptionTF[word])
-   		print descriptionTF
+   		#print descriptionTF
    		return titleTF,descriptionTF
 
 
