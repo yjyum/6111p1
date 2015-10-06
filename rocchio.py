@@ -1,4 +1,5 @@
 import math
+import document
 
 class rocchio:
     def __init__(self):
@@ -18,7 +19,7 @@ class rocchio:
         totalDocNum = len(documents)
 
         #compute idf
-        for doc in documents.iteritems():
+        for url, doc in documents.iteritems():
             for word in doc.titleTF.keys():
                 if word in self.titleidf.keys():
                     self.titleidf[word]=self.titleidf[word]+1
@@ -48,9 +49,9 @@ class rocchio:
 
             for word in doc.descriptionTF.keys():
                 if word in self.weight.keys():
-                    self.weight[word] = self.weight[word] + temp*(doc.descriptionTFTF[word]*self.descriptionidfidf[word])
+                    self.weight[word] = self.weight[word] + temp*(doc.descriptionTF[word]*self.descriptionidf[word])
                 else:
-                    self.weight[word] = temp*(doc.descriptionTFTF[word]*self.descriptionidfidf[word])
+                    self.weight[word] = temp*(doc.descriptionTF[word]*self.descriptionidf[word])
 
         for query in queryList:
             if query in self.weight.keys():
