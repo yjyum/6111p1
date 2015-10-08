@@ -61,21 +61,11 @@ class document:
    	def getTF(self):
 		titleTF={}
 		descriptionTF={}
-		for word in self.titleWordList:
-			if word in titleTF.keys():
-				titleTF[word] = titleTF[word]+1
-			else:
-				titleTF[word] = 1
-		for word in titleTF.keys():
-			titleTF[word] = 1+math.log(titleTF[word])
+		for word in self.titleWordPos.keys():
+			titleTF[word] = 1+math.log(len(self.titleWordPos[word]))
 
-		for word in self.descriptionWordList:
-			if word in descriptionTF.keys():
-				descriptionTF[word] = descriptionTF[word]+1
-			else:
-				descriptionTF[word] = 1
-		for word in descriptionTF.keys():
-			descriptionTF[word] = 1+math.log(descriptionTF[word])
+		for word in self.descriptionWordPos.keys():
+			descriptionTF[word] = 1+math.log(len(self.descriptionWordPos[word]))
    		#print descriptionTF
    		return titleTF,descriptionTF
 

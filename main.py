@@ -73,10 +73,10 @@ def main(argv):
 			for r in result:
 				doc = document(r)
 				documents[r["Url"]] = doc
-			newQuery = rocchio().compute(queryList, documents)
+			queryList = rocchio().compute(queryList, documents)
 
-			print "Augmenting by", newQuery
-			queryList.append(newQuery)
+			# print "Augmenting by", newQuery
+			# queryList.append(newQuery)
 
 if __name__ == '__main__':
 	main(sys.argv[1:3])

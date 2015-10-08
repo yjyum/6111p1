@@ -72,5 +72,31 @@ class rocchio:
                     maxScore = self.weight[term] 
 
         print self.weight
+	print ("Augmenting by "+newQuery)
 
-        return newQuery
+	flag=0
+        for url,doc in documents.iteritems():
+		if doc.relevant and newQuery in doc.titleWordPos.keys():
+        		for pos1 in doc.titleWordPos[newQuery]:
+				for pos2 in doc.titleWordPos[stem(queryList[0])]:
+					if pos2-pos1<=3 and pos2-pos1>0:
+						flag=flag-1			
+				for pos2 in doc.titleWordPos[stem(queryList[-1])]:
+					if pos1-pos2<=3 and pos1-pos2>0:
+						flag=flag+1				 
+                if doc.relevant and newQuery in doc.descriptionWordPos.keys():
+                        for pos1 in doc.descriptionWordPos[newQuery]:
+                                for pos2 in doc.descriptionWordPos[stem(queryList[0])]:
+                                        if pos2-pos1<=3 and pos2-pos1>0:
+                                                flag=flag-1         
+				for pos2 in doc.descriptionWordPos[stem(queryList[-1])]:
+					if pos1-pos2<=3 and pos1-pos2>0:
+						flag=flag+1
+	
+	print flag
+	if flag<0:
+		queryList.insert(0,newQuery)
+	else:
+		queryList.append(newQuery)
+ 
+        return queryList
