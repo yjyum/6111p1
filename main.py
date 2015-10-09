@@ -9,11 +9,11 @@ def main(argv):
 	precisionTarget = float(sys.argv[2])
 	queryList = sys.argv[3].split()
 
-	# map of all returned documents: url->document
-	documents = {}
-
 	# loop of getting user feedback and improving results
 	while True:
+		# map of all returned documents: url->document
+		documents = {}
+
 		print "\nParameters:"
 		print "Client Key = ", accountKey
 		print "Query      = ", ', '.join(queryList)
@@ -73,6 +73,7 @@ def main(argv):
 			for r in result:
 				doc = document(r)
 				documents[r["Url"]] = doc
+
 			queryList = rocchio().compute(queryList, documents)
 
 			# print "Augmenting by", newQuery
