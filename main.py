@@ -2,6 +2,7 @@ import sys
 import bing_api
 from document import *
 from rocchio import *
+from queryReorder import *
 
 def main(argv):
 	# parse input arguments
@@ -74,10 +75,12 @@ def main(argv):
 				doc = document(r)
 				documents[r["Url"]] = doc
 
-			queryList = rocchio().compute(queryList, documents)
+			newQuery = rocchio().compute(queryList, documents)
+			
+			print "Augmenting by", newQuery
+			queryList.append(newQuery)
 
-			# print "Augmenting by", newQuery
-			# queryList.append(newQuery)
+			queryList = queryReorder().reorder(queryList, documents)
 
 if __name__ == '__main__':
 	main(sys.argv[1:3])

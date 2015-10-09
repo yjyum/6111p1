@@ -72,32 +72,21 @@ class rocchio:
                     newQuery = term
                     maxScore = self.weight[term] 
 
-        print sorted(self.weight.items(), key=operator.itemgetter(1))
-        print ("Augmenting by "+newQuery)
+        oriQuery = {}
+        for url, doc in documents.iteritems():
+            if newQuery in doc.titleWordPos.keys():
+                for pos in doc.titleWordPos[newQuery]:
+                    if newQuery in oriQuery.keys():
+                        oriQuery[doc.noStemTitleWordList[pos]] += 1
+                    else:
+                        oriQuery[doc.noStemTitleWordList[pos]] = 1
+            if newQuery in doc.descriptionWordPos.keys():
+                for pos in doc.descriptionWordPos[newQuery]:
+                    if newQuery in oriQuery.keys():
+                        oriQuery[doc.noStemDescriptionWordList[pos]] += 1
+                    else:
+                        oriQuery[doc.noStemDescriptionWordList[pos]] = 1
 
-	# flag=0
- #        for url,doc in documents.iteritems():
-	# 	if doc.relevant and newQuery in doc.titleWordPos.keys():
- #        		for pos1 in doc.titleWordPos[newQuery]:
-	# 			for pos2 in doc.titleWordPos[stem(queryList[0])]:
-	# 				if pos2-pos1<=3 and pos2-pos1>0:
-	# 					flag=flag-1			
-	# 			for pos2 in doc.titleWordPos[stem(queryList[-1])]:
-	# 				if pos1-pos2<=3 and pos1-pos2>0:
-	# 					flag=flag+1				 
- #                if doc.relevant and newQuery in doc.descriptionWordPos.keys():
- #                        for pos1 in doc.descriptionWordPos[newQuery]:
- #                                for pos2 in doc.descriptionWordPos[stem(queryList[0])]:
- #                                        if pos2-pos1<=3 and pos2-pos1>0:
- #                                                flag=flag-1         
-	# 			for pos2 in doc.descriptionWordPos[stem(queryList[-1])]:
-	# 				if pos1-pos2<=3 and pos1-pos2>0:
-	# 					flag=flag+1
-	
-	# print flag
-	# if flag<0:
-	# 	queryList.insert(0,newQuery)
-	# else:
-        queryList.append(newQuery)
- 
-        return queryList
+        newQuery = max(oriQuery.iteritems(), key=operator.itemgetter(1))[0]
+
+        return newQuery
