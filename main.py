@@ -53,7 +53,6 @@ def main(argv):
 
 		# calculate precision
 		precision = relevantResult / float(totalResult)
-		print precision
 
 		print "======================"
 		print "FEEDBACK SUMMARY"
@@ -75,11 +74,12 @@ def main(argv):
 				doc = document(r)
 				documents[r["Url"]] = doc
 
-			newQuery = rocchio().compute(queryList, documents)
-			
-			print "Augmenting by", newQuery
+			# compute one new query using rocchio algorithms
+			newQuery = rocchio().compute(queryList, documents)	
 			queryList.append(newQuery)
+			print "Augmenting by", newQuery
 
+			# reorder query using bigram
 			queryList = queryReorder().reorder(queryList, documents)
 
 if __name__ == '__main__':
