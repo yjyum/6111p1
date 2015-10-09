@@ -22,7 +22,7 @@ class document:
 
 		self.descriptionWordList = self.__processDoc(rawDoc["Description"])
 		self.descriptionWordPos = self.__getWordPos(self.descriptionWordList)
-		self.descriptionTF, self.titleTF = self.getTF()
+		self.titleTF, self.descriptionTF = self.getTF()
 		return
 
 	def __str__(self):
