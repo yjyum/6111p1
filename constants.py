@@ -1,3 +1,5 @@
+# stopwords from http://www.lextek.com/manuals/onix/stopwords1.html
+
 stopWord = ["a", "a's", "able", "about", "above", "according", "accordingly",
  			"across", "actually", "after", "afterwards", "again", "against",
  			"ain't", "all", "allow", "allows", "almost", "alone", "along", 
