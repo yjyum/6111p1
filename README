@@ -1,0 +1,71 @@
+COMS6111 P1 Relevance Feedback & Query Expansion
+
+a. Team members:
+Jiayi Yan  - jy2677
+Jiaying Xu - jx2238
+
+b. Files:
+README
+main.py
+bing_api.py
+document.py
+rocchio.py
+queryReorder.py
+constants.py
+stemming/porter2.py
+stemming/__init__.py
+transcript_gates
+transcript_musk
+transcript_taj_mahal
+
+c. How to run
+python main.py <account key> <precision> <query>
+<account key>: bing api key 		e.g., XZHHHSav+P0bCzjXuYSENSNmh2p+0OB0TCEy0IBV1e0
+<precision>:   float in (0, 1), 	e.g., 0.9
+<query>:       string  				e.g., 'taj mahal'
+
+d. Internal design
+The main file takes care of taking user inputs and display outputs. Main functionality is implemented in the following files: bing_api.py for make Bing calls, rocchio.py for query expansion, queryReorder.py for reordering query terms.
+
+The main data structure is a map of all returned docs from doc url to the doc object itself as in document.py. For each doc，it stores doc raw texts, processed text after stemming and removing stopwords and all positions of a word in the document.  
+
+The activity is as follows: 
+	1. it receives bing account key, a target “precision@10” and a user query
+	2. it retrieves top-10 results' title, url, description for the query from Bing. 
+	3. user marks all the web pages that are relevant. 
+	4. it adds to current query a newly derived word
+	5. it reorders the query list to get the best possible order. 
+The loop continues until it reached the target precision, or there are fewer than 10 results returned by Bing, or users mark 0 result as relevant.
+
+e. Query-modification method
+
+1. query expansion
+After removing punctuation, stopwords and stemming, we mainly use Rocchio algorithms for relevance feedback to implement query expansion with some modifications to fit the scenario of broad search. In the Rocchio algorithms, we use lnc.ltc as the weighting scheme.
+
+Since we are addressing broad search, we assign the weight to the title and document term frequency. It makes sense, since for ambiguous and broad queries, the title, although short, gives an accurate summary of the posting which contribute valable keywords to the query. For the same reason, We don't have to download the whole html page to analysis and we only add one word to query each round.
+
+After we get a new query word which is a root, we map it back to the original texts before stemming. We then choose the most frequect word correspoding to the root as the new query word. 
+
+2. query reorder
+
+During the tests, we find that the query order only makes a difference when the query contains a proper noun. All words in the proper noun either appear as a phrase or don't appear at all, which means they all have a similar bigram frequency. Therefore, we use bigram to determine inter two word order and construct ngram phrase.
+
+For the same reason mentioned in 1, we use title as source. Raw texts are used instead of processed texts for the reason that some meaningful words in query may be treated as stopwords, such as "new" in "new york". Using the texts without the stops may harm the bigram performance for queries like "to be or not to be".
+
+We first construct a permutation of all two bigrams and calculate frequency. Then using the bigram with max freq as a base, we go through all bigrams in decreasing order and combine them if possible(the new bigram doesn't contradict the existing bigram with a larget frequency). For example,
+	For the bigram of words (w1, w2)
+		if w1 & w2 already examined as bigram (w3, w1), (w2, w4)
+			then a new 4gram can be formed (w3, w1, w2, w4)
+		if w1 already examined as bigram (w1, w3), w2 not examined yet
+			then (w1, w3) has a higher freq and relevance than (w1, w2), we ignore (w1, w2)
+		etc.
+
+For the query words that have zero freq in all its bigrams, it means that the order doens't matter and we append them to the end of query.
+
+3. performance
+The performance of our program can reach precision 0.9 in 3 rounds for most queries we test. It identifies the most relevant query to add and order the query in the correct order if the query is a specific proper noun. For example, 
+	[university, new, york] -> [new, york, univeristy, private]
+	Using the first query to search for posts about NYU returns some random universities in New York. Using the query reordering which treats "new york" as a bigram and puts it before "university" will clear the ambiguity out. "private" is also a key feature of NYU and the most weighted word for the search.
+
+f. Bing account key
+XZHHHSav+P0bCzjXuYSENSNmh2p+0OB0TCEy0IBV1e0

@@ -1,0 +1,192 @@
+jy2677@brussels:~/6111$ python main.py XZHHHSav+P0bCzjXuYSENSNmh2p+0OB0TCEy0IBV1e0 0.9 'gates'
+
+Parameters:
+Client Key =  XZHHHSav+P0bCzjXuYSENSNmh2p+0OB0TCEy0IBV1e0
+Query      =  gates
+Precision  =  0.9
+URL:  https://api.datamarket.azure.com/Bing/Search/Web?Query=%27gates%27&$top=10&$format=json
+
+Total no of results :  10
+Bing Search Results:
+======================
+
+Result  1
+[
+ URL:  http://www.gates.com/
+ Title:  Gates Corporation
+ Summary:  Gates Corporation is Powering Progress™ in the Oil & Gas, Energy, Mining, Marine, Agriculture, Transportation and Automotive Industries.
+]
+Relevant (Y/N)?n
+
+Result  2
+[
+ URL:  http://www.gatecrafters.com/design_your_gates.aspx
+ Title:  Driveway Gates | Automatic Gates | Electric Gates
+ Summary:  Driveway Gates - Automatic Gates The high-quality driveway gates from GateCrafters.com come in a wide variety of options to ...
+]
+Relevant (Y/N)?n
+
+Result  3
+[
+ URL:  http://en.wikipedia.org/wiki/Bill_Gates
+ Title:  Bill Gates - Wikipedia, the free encyclopedia
+ Summary:  William Henry "Bill" Gates III (born October 28, 1955) is an American business magnate, philanthropist, investor, computer programmer, and inventor. In 1975, Gates co ...
+]
+Relevant (Y/N)?y
+
+Result  4
+[
+ URL:  http://en.wikipedia.org/wiki/Gates
+ Title:  Gates - Wikipedia, the free encyclopedia
+ Summary:  Gates may refer to: Contents 1 People 2 Places 3 Art and entertainment 4 See also People Gates (surname) Gates Brown, American baseball player Gates McFadden ...
+]
+Relevant (Y/N)?n
+
+Result  5
+[
+ URL:  https://www.facebook.com/gatesnj
+ Title:  gates
+ Summary:  gates. 13,913 likes · 194 talking about this. www.gatesnj.com. Facebook logo. Email or Phone: Password: Keep me logged in. Forgot your password? Sign Up. gates
+]
+Relevant (Y/N)?n
+
+Result  6
+[
+ URL:  http://www.amazon.com/s?ie=UTF8&page=1&rh=i%3Aaps%2Ck%3Agates
+ Title:  Amazon.com: gates
+ Summary:  Product Features Expands to become a 192-inch wall mounted gate or free standing barrier
+]
+Relevant (Y/N)?n
+
+Result  7
+[
+ URL:  http://www.gates.com/catalogs-and-resources/catalogs
+ Title:  Gates Belts, Hose, & Hydraulics Catalogs | Gates Corporation
+ Summary:  Gate is a leading global, industrial, diversified company. View our catalogs to learn more about our belts, hose, & hydraulic products.
+]
+Relevant (Y/N)?n
+
+Result  8
+[
+ URL:  http://www.gatesbbq.com/
+ Title:  Gates Bar B.Q.
+ Summary:  With the tantalizing hickory barbecue smell drawing the customer through the ranch-style doors, he is immediately greeted.
+]
+Relevant (Y/N)?n
+
+Result  9
+[
+ URL:  http://www.forbes.com/profile/bill-gates/
+ Title:  Bill Gates - Forbes
+ Summary:  Forty years ago, when Bill Gates and Paul Allen launched Microsoft, Gates' goal of getting a computer on every person's desk seemed audacious.
+]
+Relevant (Y/N)?y
+
+Result  10
+[
+ URL:  http://www.gatesfoundation.org/
+ Title:  Bill & Melinda Gates Foundation
+ Summary:  The Gates Foundation’s effort to eradicate polio offers the chance to protect millions of children from paralysis forever.
+]
+Relevant (Y/N)?y
+======================
+FEEDBACK SUMMARY
+Query  gates
+Precision  0.3
+Still below the desired precision of  0.9
+Augmenting by bill
+
+Parameters:
+Client Key =  XZHHHSav+P0bCzjXuYSENSNmh2p+0OB0TCEy0IBV1e0
+Query      =  bill, gates
+Precision  =  0.9
+URL:  https://api.datamarket.azure.com/Bing/Search/Web?Query=%27bill%20gates%27&$top=10&$format=json
+
+Total no of results :  10
+Bing Search Results:
+======================
+
+Result  1
+[
+ URL:  http://www.gatesnotes.com/
+ Title:  Home | Bill Gates
+ Summary:  This is my personal blog, where I share about the people I meet, the books I'm reading, and what I'm learning. I hope that you'll join the conversation.
+]
+Relevant (Y/N)?y
+
+Result  2
+[
+ URL:  http://en.wikipedia.org/wiki/Bill_Gates
+ Title:  Bill Gates - Wikipedia, the free encyclopedia
+ Summary:  William Henry "Bill" Gates III (born October 28, 1955) is an American business magnate, philanthropist, investor, computer programmer, and inventor. In 1975, Gates co ...
+]
+Relevant (Y/N)?y
+
+Result  3
+[
+ URL:  http://www.biography.com/people/bill-gates-9307520#!
+ Title:  Bill Gates - Business Leader, Entrepreneur, Philanthropist ...
+ Summary:  Entrepreneur Bill Gates founded the world's largest software business, Microsoft, with Paul Allen, and subsequently became one of the richest men in the world.
+]
+Relevant (Y/N)?y
+
+Result  4
+[
+ URL:  https://www.facebook.com/BillGates
+ Title:  Bill Gates
+ Summary:  Bill Gates is on Facebook. To connect with Bill Gates, sign up for Facebook today. Sign Up Log In. Bill Gates. Public Figure. Public Cancel Save Changes. Bill Gates.
+]
+Relevant (Y/N)?y
+
+Result  5
+[
+ URL:  https://twitter.com/billgates
+ Title:  Bill Gates (@BillGates) | Twitter
+ Summary:  1,810 tweets • 500 photos/videos • 25M followers. "Could computer modeling and machine learning help prevent the next epidemic? http://t.co/cSmnt1SD5w @IEEESpectrum"
+]
+Relevant (Y/N)?y
+
+Result  6
+[
+ URL:  http://inventors.about.com/od/gstartinventors/a/Bill_Gates.htm
+ Title:  Bill Gates - Biography
+ Summary:  Bill Gates came from a family of entrepreneurship and high-spirited liveliness. William Henry Gates III was born in Seattle, Washington on October 28th, 1955.
+]
+Relevant (Y/N)?y
+
+Result  7
+[
+ URL:  http://www.forbes.com/profile/bill-gates/
+ Title:  Bill Gates - Forbes
+ Summary:  Forty years ago, when Bill Gates and Paul Allen launched Microsoft, Gates' goal of getting a computer on every person's desk seemed audacious.
+]
+Relevant (Y/N)?y
+
+Result  8
+[
+ URL:  http://www.gatesfoundation.org/
+ Title:  Bill & Melinda Gates Foundation
+ Summary:  The Gates Foundation’s effort to eradicate polio offers the chance to protect millions of children from paralysis forever.
+]
+Relevant (Y/N)?y
+
+Result  9
+[
+ URL:  http://www.huffingtonpost.com/news/bill-gates/
+ Title:  Bill Gates: Pictures, Videos, Breaking News
+ Summary:  Big News on Bill Gates. Includes blogs, news, and community conversations about Bill Gates.
+]
+Relevant (Y/N)?y
+
+Result  10
+[
+ URL:  http://news.microsoft.com/2008/06/03/bill-gates-keynote-microsoft-tech%e2%80%a2ed-2008-developers/
+ Title:  Bill Gates Keynote: Microsoft Tech•Ed 2008 — Developers ...
+ Summary:  BILL GATES: Good morning and welcome to Tech•Ed. This is the first year that we broke Tech•Ed into two sections, the section this week, which is just ...
+]
+Relevant (Y/N)?y
+======================
+FEEDBACK SUMMARY
+Query  bill, gates
+Precision  1.0
+Desired precision reached, done
